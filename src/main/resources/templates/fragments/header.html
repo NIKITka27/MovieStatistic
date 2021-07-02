@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="eng"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="header">
+    <nav class="navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" th:href="@{/review}">Notebook</a>
+                <ul class="nav navbar-nav">
+                    <li><a href="#" th:href="@{/review/add}">New Review</a></li>
+                </ul>
+                <ul class="nav navbar-nav">
+                    <li><a href="#" th:href="@{/film}">Film List</a></li>
+                </ul>
+                <ul class="nav navbar-nav">
+                    <li><a href="#" th:href="@{/admin}">Admin</a></li>
+                </ul>
+                <ul class="nav navbar-nav">
+                    <li><a href="#" th:href="@{/logout}">Logout</a></li>
+                </ul>
+                <ul class="nav navbar-nav">
+                    <li><a href="#" th:href="@{/registration}">Registration</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+</html>

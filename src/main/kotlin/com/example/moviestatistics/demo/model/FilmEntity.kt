@@ -20,6 +20,12 @@ class FilmEntity(
     @Column
     val name: String? = null,
 
+    @Column
+    val description:  String? = null,
+
+    @Column
+    val year: Long? = null,
+
     @OneToMany(
         mappedBy = "film",
         fetch = FetchType.LAZY,

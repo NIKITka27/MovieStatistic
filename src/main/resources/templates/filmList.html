@@ -22,6 +22,8 @@
                             <thead>
                             <tr>
                                 <th>Film name</th>
+                                <th>Description</th>
+                                <th>Release year</th>
                                 <th>Update</th>
                                 <th>Delete</th>
                             </tr>
@@ -29,11 +31,14 @@
                             <tbody>
                             <tr th:each="film : ${films}">
                                 <td th:text="${film.name}"></td>
+                                <td th:text="${film.description}"></td>
+                                <td th:text="${film.year}"></td>
                                 <td><a th:href="@{/film/edit/{id}(id=${film.id})}" class="btn btn-primary"><i class="fas fa-user-edit ml-2"></i></a></td>
                                 <td><a th:href="@{/film/delete/{id}(id=${film.id})}" class="btn btn-primary"><i class="fas fa-user-times ml-2"></i></a></td>
                             </tr>
                             </tbody>
                         </table>
+                        <button><a href="#" th:href="@{/film/add}">Add Film</a> </button>
                     </div>
                 </div>
             </div>

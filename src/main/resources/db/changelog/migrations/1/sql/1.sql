@@ -2,7 +2,9 @@ create table film
 (
     id       bigint not null
         primary key auto_increment,
-    name text   not null
+    name text   not null,
+    description text   not null,
+    year  bigint not null
 );
 create table user
 (
@@ -35,6 +37,7 @@ create table review
     user_id bigint not null,
     film_id bigint not null,
     rating int not null,
+    comment text,
     created_at date not null,
     primary key (id) ,
     foreign key (user_id) REFERENCES user(id),

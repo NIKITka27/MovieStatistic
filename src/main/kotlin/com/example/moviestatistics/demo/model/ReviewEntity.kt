@@ -28,6 +28,9 @@ class ReviewEntity(
     @Column
     var rating: Int? = null,
 
+    @Column
+    var comment: String? = null,
+
     @Column(name = "created_at")
     var date: LocalDate? = null
 )

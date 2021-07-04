@@ -31,10 +31,5 @@ class AdminController {
         return "redirect:/admin"
     }
 
-//    @GetMapping("/admin/gt/{userId}")
-//    fun gtUser(@PathVariable("userId") userId: Long?, model: Model): String? {
-//        model.addAttribute("allUsers", userService.usergtList(userId))
-//        return "admin"
-//    }
 
 }

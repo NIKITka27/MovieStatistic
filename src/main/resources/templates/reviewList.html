@@ -24,6 +24,7 @@
                                 <th>User</th>
                                 <th>Film</th>
                                 <th>Rating</th>
+                                <th>Comment</th>>
                                 <th>Date</th>
                             </tr>
                             </thead>
@@ -32,12 +33,12 @@
                                 <td th:text="${review.user.getName()}"></td>
                                 <td th:text="${review.film.getName()}"></td>
                                 <td th:text="${review.rating}"></td>
+                                <td th:text="${review.comment}"></td>
                                 <td th:text="${review.date}"></td>
-<!--                                <td><a th:href="@{/review/edit/{id}(id=${review.id})}" class="btn btn-primary"><i class="fas fa-user-edit ml-2"></i></a></td>-->
-<!--                                <td><a th:href="@{/review/delete/{id}(id=${review.id})}" class="btn btn-primary"><i class="fas fa-user-times ml-2"></i></a></td>-->
                             </tr>
                             </tbody>
                         </table>
+                        <button><a href="#" th:href="@{/review/add}">Add Review</a> </button>
                         <div th:replace="fragments/footer :: footer"></div>
                     </div>
 

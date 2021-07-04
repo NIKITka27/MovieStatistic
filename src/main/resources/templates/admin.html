@@ -35,10 +35,8 @@
                 <td th:text="${user.password}"></td>
                 <td th:each="roles : ${user.roles}" th:text="${roles.roleName}"></td>
                 <td><a th:href="@{/user/delete/{id}(id=${user.id})}" class="btn btn-primary"><i class="fas fa-user-times ml-2"></i></a></td>
-
             </table>
           </div>
-
         </div>
       </div>
     </div>

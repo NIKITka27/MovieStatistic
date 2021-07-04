@@ -9,7 +9,8 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
 
 </head>
-
+<head th:replace="fragments/head :: head"></head>
+<div th:replace="fragments/header :: header"></div>
 <body>
 <div class="container my-5">
     <h3> Add Review</h3>
@@ -41,6 +42,9 @@
                                 </div>
                                 <div class="form-group col-md-8">
                                     <label for="rating" class="col-form-label">rating</label> <input type="number" min="1" max="5" th:field="*{rating}" class="form-control" id="rating" placeholder="rating"> <span th:if="${#fields.hasErrors('rating')}" th:errors="*{rating}" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-8">
+                                    <label for="comment" class="col-form-label">comment</label> <input type="comment" th:field="*{comment}" class="form-control" id="comment" placeholder="comment"> <span th:if="${#fields.hasErrors('comment')}" th:errors="*{comment}" class="text-danger"></span>
                                 </div>
                                 <div class="form-group col-md-8">
                                    <label for="date" class="col-form-label">date</label> <input type="date" th:field="*{date}" class="form-control" id="date" placeholder="date"> <span th:if="${#fields.hasErrors('date')}" th:errors="*{date}" class="text-danger"></span>

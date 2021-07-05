@@ -39,6 +39,7 @@ create table review
     rating int not null,
     comment text,
     created_at date not null,
+    done BOOLEAN,
     primary key (id) ,
     foreign key (user_id) REFERENCES user(id),
     foreign key (film_id) REFERENCES film(id)

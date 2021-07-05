@@ -5,6 +5,8 @@ import com.example.moviestatistics.demo.repositories.FilmRepository
 import com.example.moviestatistics.demo.repositories.ReviewRepository
 import com.example.moviestatistics.demo.repositories.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.format.annotation.DateTimeFormat
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -13,6 +15,7 @@ import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.servlet.ModelAndView
 import java.time.LocalDate
+
 
 @Controller
 @RequestMapping("/review")
@@ -27,9 +30,18 @@ class ReviewController {
     @Autowired
     lateinit var filmRepository: FilmRepository
 
+    private var filterMethod = "ALL"
+    private var sortDateMethod = "ASC"
+
     @GetMapping
-    fun getReviews(model: Model): ModelAndView {
+    fun getReviews(model: Model, pageable: Pageable ): ModelAndView {
+        val notePage: Page<ReviewEntity?>? = filterAndSort(pageable)
+        val page: PageWrapper<ReviewEntity?> = PageWrapper<ReviewEntity?>(notePage!!, "/review")
         model.addAttribute("reviews", reviewRepository.findAll())
+        model.addAttribute("notes", page.content);
+        model.addAttribute("sort", sortDateMethod);
+        model.addAttribute("filter", filterMethod);
+        model.addAttribute("page", page);
         var modelAndView: ModelAndView = ModelAndView()
         modelAndView.viewName = "reviewList"
 
@@ -48,15 +60,19 @@ class ReviewController {
     }
 
     @PostMapping("/add")
-    fun addReview(user: Long, film: Long, rating: Int, @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) date: LocalDate, model: Model): ModelAndView {
+    fun addReview(user: Long, film: Long, rating: Int, comment: String, @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) date: LocalDate, model: Model, pageable: Pageable ): ModelAndView {
+        val notePage: Page<ReviewEntity?>? = filterAndSort(pageable)
+        val page: PageWrapper<ReviewEntity?> = PageWrapper<ReviewEntity?>(notePage!!, "/review")
         val modelAndView: ModelAndView = ModelAndView()
         modelAndView.viewName = "reviewList"
         val review = ReviewEntity()
         review.user = userRepository.findById(user).orElseThrow { throw RuntimeException() }
         review.film = filmRepository.findById(film).orElseThrow { throw RuntimeException() }
         review.rating = rating
+        review.comment = comment
         review.date = date
         reviewRepository.save(review)
+        model.addAttribute("page", page);
         model.addAttribute("reviews", reviewRepository.findAll())
 
         return modelAndView;
@@ -160,5 +176,34 @@ class ReviewController {
         return modelAndView
     }
 
+    @GetMapping("/filter/{filter}")
+    fun filterChoose(@PathVariable filter: String): String? {
+        filterMethod = filter
+        return "redirect:/review"
+    }
+
+    @GetMapping("/sort/{sortDate}")
+    fun sortChoose(@PathVariable sortDate: String): String? {
+        sortDateMethod = sortDate
+        return "redirect:/review"
+    }
+    private fun filterAndSort(pageable: Pageable): Page<ReviewEntity?>? {
+        var page: Page<ReviewEntity?>? = null
+            when (filterMethod) {
+            "ALL" -> when (sortDateMethod) {
+                "ASC" -> page = reviewRepository.findAllByOrderByDateAsc(pageable)
+                "DESC" -> page = reviewRepository.findAllByOrderByDateDesc(pageable)
+            }
+            "TRUE" -> when (sortDateMethod) {
+                "ASC" -> page = reviewRepository.findAllByDoneTrueOrderByDateAsc(pageable)
+                "DESC" -> page = reviewRepository.findAllByDoneTrueOrderByDateDesc(pageable)
+            }
+            "FALSE" -> when (sortDateMethod) {
+                "ASC" -> page = reviewRepository.findAllByDoneFalseOrderByDateAsc(pageable)
+                "DESC" -> page = reviewRepository.findAllByDoneFalseOrderByDateDesc(pageable)
+            }
+        }
+        return page
+    }
 
 }

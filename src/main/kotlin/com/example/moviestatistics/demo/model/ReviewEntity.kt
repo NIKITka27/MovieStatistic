@@ -32,5 +32,8 @@ class ReviewEntity(
     var comment: String? = null,
 
     @Column(name = "created_at")
-    var date: LocalDate? = null
+    var date: LocalDate? = null,
+
+    @Column(name = "done")
+    var done: Boolean? = true
 )

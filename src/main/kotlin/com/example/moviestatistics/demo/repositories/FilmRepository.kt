@@ -13,13 +13,13 @@ interface FilmRepository : PagingAndSortingRepository<FilmEntity, Long> {
     override fun findById(id: Long): Optional<FilmEntity>
 
     @Query(
-        "select f.id, f.name from film f join review r on f.id = r.film_id Group by f.id order by avg(r.rating) DESC",
+        "select f.id, f.name, f.description, f.year  from film f join review r on f.id = r.film_id Group by f.id order by avg(r.rating) DESC",
         nativeQuery = true
     )
     fun findAllWithPaginationAndDescSort(pageable: Pageable): List<FilmEntity>
 
     @Query(
-        "select f.id, f.name from film f join review r on f.id = r.film_id Group by f.id order by avg(r.rating) ASC",
+        "select f.id, f.name, f.description, f.year from film f join review r on f.id = r.film_id Group by f.id order by avg(r.rating) ASC",
         nativeQuery = true
     )
     fun findAllWithPaginationAndASCSort(pageable: Pageable): List<FilmEntity>

@@ -2,12 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=cp1251"/>
     <title>Films</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
-</head>
 <head th:replace="fragments/head :: head"></head>
 <body>
 <div class="container my-2">
@@ -33,8 +28,8 @@
                                 <td th:text="${film.name}"></td>
                                 <td th:text="${film.description}"></td>
                                 <td th:text="${film.year}"></td>
-                                <td><a th:href="@{/film/edit/{id}(id=${film.id})}" class="btn btn-primary"><i class="fas fa-user-edit ml-2"></i></a></td>
-                                <td><a th:href="@{/film/delete/{id}(id=${film.id})}" class="btn btn-primary"><i class="fas fa-user-times ml-2"></i></a></td>
+                                <td><a th:href="@{/film/edit/{id}(id=${film.id})}"><i class="fa fa-edit" style="font-size:20px"></i></a></td>
+                                <td><a th:href="@{/film/delete/{id}(id=${film.id})}"><i class="fa fa-trash" style="font-size:20px"></i></a></td>
                             </tr>
                             </tbody>
                         </table>

@@ -27,6 +27,7 @@
                                 <td th:text="${user.password}"></td>
                                 <td th:each="roles : ${user.roles}" th:text="${roles.roleName}"></td>
                                 <td><a th:href="@{/user/delete/{id}(id=${user.id})}"><i class="fa fa-trash" style="font-size:20px"></i></a></td>
+                                <td><a th:href="@{/review/statistic/{id}(id=${user.id})}"><i class="fa fa-edit" style="font-size:20px"></i></a></td>
                         </table>
                     </div>
                 </div>

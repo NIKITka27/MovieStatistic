@@ -37,6 +37,21 @@ interface ReviewRepository : PagingAndSortingRepository<ReviewEntity, Long> {
         @Param("to") to: LocalDate
     ): Double
 
+    @Query("SELECT min (rating) from ReviewEntity WHERE (user = :user)")
+    fun findByRatingMin(
+        @Param("user") userEntity: UserEntity
+    ): Double
+
+    @Query("SELECT max (rating) from ReviewEntity WHERE (user = :user)")
+    fun findByRatingMax(
+        @Param("user") userEntity: UserEntity
+    ): Double
+
+    @Query("SELECT avg (rating) from ReviewEntity WHERE (user = :user)")
+    fun findByRatingAvg(
+        @Param("user") userEntity: UserEntity,
+    ): Double
+
     fun findAllByOrderByDateAsc(pageable: Pageable?): Page<ReviewEntity?>?
     fun findAllByOrderByDateDesc(pageable: Pageable?): Page<ReviewEntity?>?
     fun findAllByDoneTrueOrderByDateAsc(pageable: Pageable?): Page<ReviewEntity?>?

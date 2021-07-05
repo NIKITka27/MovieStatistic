@@ -136,7 +136,7 @@ class ReviewController {
         model.addAttribute("user", user)
         model.addAttribute("maxRating", maxRating)
         var modelAndView: ModelAndView = ModelAndView()
-        modelAndView.viewName = "maxRating"
+            modelAndView.viewName = "maxRating"
         return modelAndView
     }
 
@@ -173,6 +173,27 @@ class ReviewController {
         model.addAttribute("avgRating", avgRating)
         var modelAndView: ModelAndView = ModelAndView()
         modelAndView.viewName = "avgRating"
+        return modelAndView
+    }
+
+    @GetMapping("statistic/{id}")
+    fun getStaistic(
+        @PathVariable("id") id: Long,
+
+        model: Model
+    ): ModelAndView {
+
+        val user = userRepository.findById(id).get()
+        val minRating = reviewRepository.findByRatingMin(user)
+        val maxRating = reviewRepository.findByRatingMax(user)
+        val avgRating = reviewRepository.findByRatingAvg(user)
+        print(maxRating)
+        model.addAttribute("user", user)
+        model.addAttribute("maxRating", maxRating)
+        model.addAttribute("minRating", minRating)
+        model.addAttribute("avgRating", avgRating)
+        var modelAndView: ModelAndView = ModelAndView()
+        modelAndView.viewName = "statisticsUser"
         return modelAndView
     }
 

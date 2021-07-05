@@ -18,6 +18,7 @@
                                 <th>User email</th>
                                 <th>User password</th>
                                 <th>Update</th>
+                                <th>Statistic</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -26,6 +27,7 @@
                                 <td th:text="${user.email}"></td>
                                 <td th:text="${user.password}"></td>
                                 <td><a th:href="@{/user/edit/{id}(id=${user.id})}"><i class="fa fa-edit" style="font-size:20px"></i></a></td>
+                                <td><a th:href="@{/review/statistic/{id}(id=${user.id})}"><i class="fa fa-edit" style="font-size:20px"></i></a></td>
                         </table>
                     </div>
                 </div>

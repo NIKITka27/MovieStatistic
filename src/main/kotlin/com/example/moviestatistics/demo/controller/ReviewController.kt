@@ -30,17 +30,15 @@ class ReviewController {
     @Autowired
     lateinit var filmRepository: FilmRepository
 
-    private var filterMethod = "ALL"
     private var sortDateMethod = "ASC"
 
     @GetMapping
     fun getReviews(model: Model, pageable: Pageable ): ModelAndView {
         val notePage: Page<ReviewEntity?>? = filterAndSort(pageable)
-        val page: PageWrapper<ReviewEntity?> = PageWrapper<ReviewEntity?>(notePage!!, "/review")
+        val page: PageWrapper<ReviewEntity?> = PageWrapper(notePage!!, "/review")
         model.addAttribute("reviews", reviewRepository.findAll())
         model.addAttribute("notes", page.content);
         model.addAttribute("sort", sortDateMethod);
-        model.addAttribute("filter", filterMethod);
         model.addAttribute("page", page);
         var modelAndView: ModelAndView = ModelAndView()
         modelAndView.viewName = "reviewList"
@@ -197,12 +195,6 @@ class ReviewController {
         return modelAndView
     }
 
-    @GetMapping("/filter/{filter}")
-    fun filterChoose(@PathVariable filter: String): String? {
-        filterMethod = filter
-        return "redirect:/review"
-    }
-
     @GetMapping("/sort/{sortDate}")
     fun sortChoose(@PathVariable sortDate: String): String? {
         sortDateMethod = sortDate
@@ -210,20 +202,10 @@ class ReviewController {
     }
     private fun filterAndSort(pageable: Pageable): Page<ReviewEntity?>? {
         var page: Page<ReviewEntity?>? = null
-            when (filterMethod) {
-            "ALL" -> when (sortDateMethod) {
+             when (sortDateMethod) {
                 "ASC" -> page = reviewRepository.findAllByOrderByDateAsc(pageable)
                 "DESC" -> page = reviewRepository.findAllByOrderByDateDesc(pageable)
             }
-            "TRUE" -> when (sortDateMethod) {
-                "ASC" -> page = reviewRepository.findAllByDoneTrueOrderByDateAsc(pageable)
-                "DESC" -> page = reviewRepository.findAllByDoneTrueOrderByDateDesc(pageable)
-            }
-            "FALSE" -> when (sortDateMethod) {
-                "ASC" -> page = reviewRepository.findAllByDoneFalseOrderByDateAsc(pageable)
-                "DESC" -> page = reviewRepository.findAllByDoneFalseOrderByDateDesc(pageable)
-            }
-        }
         return page
     }
 

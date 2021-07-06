@@ -31,6 +31,7 @@ class SecurityConfig(private var userDetailsService: UserDetailsService) : WebSe
             .antMatchers("/static/**").permitAll()
             .antMatchers("/css/**").permitAll()
             .antMatchers("/js/**").permitAll()
+            .antMatchers("/image/**").permitAll()
             .antMatchers("/registration").permitAll()
             .antMatchers("/review").permitAll()
             .anyRequest().authenticated()

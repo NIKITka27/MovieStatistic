@@ -54,6 +54,7 @@ interface ReviewRepository : PagingAndSortingRepository<ReviewEntity, Long> {
 
     fun findAllByOrderByDateAsc(pageable: Pageable?): Page<ReviewEntity?>?
     fun findAllByOrderByDateDesc(pageable: Pageable?): Page<ReviewEntity?>?
+
     fun findAllByDoneTrueOrderByDateAsc(pageable: Pageable?): Page<ReviewEntity?>?
     fun findAllByDoneTrueOrderByDateDesc(pageable: Pageable?): Page<ReviewEntity?>?
     fun findAllByDoneFalseOrderByDateAsc(pageable: Pageable?): Page<ReviewEntity?>?
